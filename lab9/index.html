@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Tasks</title>
+    <style>
+        /* General Styles */
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h2 { color: #333; }
+        p { font-size: 16px; }
+
+        /* Table Styles */
+        table { border-collapse: collapse; width: 60%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        th { background-color: #f4f4f4; }
+        .grade-table { width: 40%; }
+
+        /* Progress Bar Styles */
+        #progressContainer { width: 100%; background-color: #e0e0e0; margin-top: 10px; border-radius: 5px; }
+        #progressBar { width: 0%; height: 25px; background-color: #4caf50; border-radius: 5px; transition: width 0.3s; }
+
+        /* Task Specific Styles */
+        #output, #dblClickOutput, #result { font-weight: bold; margin-top: 10px; }
+
+        /* FizzBuzz Styles */
+        #fizzbuzzOutput { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 8px; list-style-type: none; padding: 0; margin-top: 10px; }
+        #fizzbuzzOutput li { padding: 10px; color: #fff; font-weight: bold; text-align: center; border-radius: 5px; }
+        .fizz { background-color: #FF6347; } /* Red for Fizz */
+        .buzz { background-color: #1E90FF; } /* Blue for Buzz */
+        .fizzbuzz { background-color: #32CD32; } /* Green for FizzBuzz */
+        .number { background-color: #808080; } /* Gray for regular numbers */
+    </style>
+</head>
+<body>
+
+<!-- Task 1: Compute Average Marks and Grade -->
+<h2>Task 1: Student Grades</h2>
+<table>
+    <tr>
+        <th>Student Name</th>
+        <th>Marks</th>
+    </tr>
+    <tr><td>David</td><td>80</td></tr>
+    <tr><td>Vinoth</td><td>77</td></tr>
+    <tr><td>Divya</td><td>88</td></tr>
+    <tr><td>Ishitha</td><td>95</td></tr>
+    <tr><td>Thomas</td><td>68</td></tr>
+</table>
+
+<p id="result"></p>
+
+<table class="grade-table">
+    <tr>
+        <th>Range</th>
+        <th>Grade</th>
+    </tr>
+    <tr><td>&lt;60</td><td>F</td></tr>
+    <tr><td>&lt;70</td><td>D</td></tr>
+    <tr><td>&lt;80</td><td>C</td></tr>
+    <tr><td>&lt;90</td><td>B</td></tr>
+    <tr><td>&lt;100</td><td>A</td></tr>
+</table>
+
+<!-- Task 2: Keydown Event Listener for "Enter" Key -->
+<h2>Task 2: Enter Key Detection</h2>
+<input type="text" id="textInput" placeholder="Type something and press Enter" />
+<p id="output"></p>
+
+<!-- Task 3: Double Click Event Listener -->
+<h2>Task 3: Double Click Event</h2>
+<button id="dblClickButton">Double Click Me</button>
+<p id="dblClickOutput"></p>
+
+<!-- Task 4: Progress Bar -->
+<h2>Task 4: Progress Bar</h2>
+<div id="progressContainer">
+    <div id="progressBar"></div>
+</div>
+<button onclick="updateProgress()">Complete Task</button>
+
+<!-- Task 5: FizzBuzz Program -->
+<h2>Task 5: FizzBuzz</h2>
+<ul id="fizzbuzzOutput"></ul>
+
+<script>
+    // Task 1: Compute Average Marks and Grade
+    function calculateGrade() {
+        const marks = [80, 77, 88, 95, 68];
+        const average = marks.reduce((a, b) => a + b) / marks.length;
+        let grade = '';
+
+        if (average < 60) grade = 'F';
+        else if (average < 70) grade = 'D';
+        else if (average < 80) grade = 'C';
+        else if (average < 90) grade = 'B';
+        else grade = 'A';
+
+        document.getElementById('result').textContent = `Average Marks: ${average.toFixed(2)}, Grade: ${grade}`;
+    }
+    calculateGrade();
+
+    // Task 2: Keydown Event Listener for "Enter" Key
+    document.getElementById('textInput').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            document.getElementById('output').textContent = 'Enter key pressed!';
+        }
+    });
+
+    // Task 3: Double Click Event Listener
+    document.getElementById('dblClickButton').addEventListener('dblclick', function() {
+        document.getElementById('dblClickOutput').textContent = 'Button was double-clicked!';
+    });
+
+    // Task 4: Progress Bar
+    let progress = 0;
+    function updateProgress() {
+        if (progress < 100) {
+            progress += 20;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+    }
+
+    // Task 5: FizzBuzz Program
+    function fizzBuzz() {
+        const output = document.getElementById('fizzbuzzOutput');
+        for (let i = 1; i <= 100; i++) {
+            const listItem = document.createElement('li');
+            if (i % 3 === 0 && i % 5 === 0) {
+                listItem.textContent = 'FizzBuzz';
+                listItem.className = 'fizzbuzz';
+            } else if (i % 3 === 0) {
+                listItem.textContent = 'Fizz';
+                listItem.className = 'fizz';
+            } else if (i % 5 === 0) {
+                listItem.textContent = 'Buzz';
+                listItem.className = 'buzz';
+            } else {
+                listItem.textContent = i;
+                listItem.className = 'number';
+            }
+            output.appendChild(listItem);
+        }
+    }
+    fizzBuzz();
+</script>
+
+</body>
+</html>
